@@ -25,7 +25,7 @@ Explanation: The only possible triplet sums up to 0.
 */
 
 function threeSum(nums: number[]): number[][] {
-  const result = [];
+  const result: number[][] = [];
   nums.sort((a, b) => a - b);
 
   for (let id in nums) {
