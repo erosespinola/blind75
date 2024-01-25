@@ -21,25 +21,22 @@ function characterReplacement(s: string, k: number): number {
   let i = 0
   let j = 0
   let charCount: { [key: string]: number } = {}
-
-  const mostPopular = () => {
-    return Math.max(...Object.values(charCount), 0)
-  }
+  let mostFre = 0
 
   while (j < s.length) {
     const char = s.charAt(j)
     charCount[char] = (charCount[char] ?? 0) + 1
+    mostFre = Math.max(mostFre, charCount[char])
+    let isWindowInvalid = j - i + 1 - mostFre > k
 
-    let isWindowValid = j - i + 1 - mostPopular() <= k
-
-    while (!isWindowValid) {
+    while (isWindowInvalid) {
       charCount[s.charAt(i)]--
       i++
-      isWindowValid = j - i + 1 - mostPopular() <= k
+      isWindowInvalid = j - i + 1 - mostFre > k
     }
 
+    maxLen = Math.max(j - i + 1, maxLen)
     j++
-    maxLen = Math.max(j - i, maxLen)
   }
 
   return maxLen
